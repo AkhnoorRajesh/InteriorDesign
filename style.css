@@ -1697,3 +1697,23 @@ html, body {
     padding: 20px;
   }
 }
+
+/* -------------------------------------------------------------
+   SPLASH CURSOR FLUID SIMULATION (React Bits Component)
+------------------------------------------------------------- */
+#fluid-cursor-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 50;
+}
+
+#fluid {
+  width: 100vw;
+  height: 100vh;
+  display: block;
+}
+
