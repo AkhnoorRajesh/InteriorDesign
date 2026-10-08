@@ -1,0 +1,13 @@
+{
+  "name": "interior-scroll-animation",
+  "version": "1.0.0",
+  "description": "Smooth scroll interior image sequence animation",
+  "scripts": {
+    "dev": "node serve.js",
+    "start": "node serve.js",
+    "serve": "node serve.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>RESIDENCE 01 — Luxury Interior & Architecture</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css?v=1.8">
+</head>
+<body>
+  <!-- Fixed Background Visual Hero (Canvas Image Sequence) -->
+  <canvas id="canvas"></canvas>
+  <div id="video-overlay"></div>
+
+  <!-- Minimal Editorial Navigation -->
+  <header id="site-header">
+    <div class="header-inner">
+      <a href="#hero" class="brand-logo" id="nav-brand">RESIDENCE 01</a>
+      <div class="header-cta">
+        <button class="inquire-btn" id="nav-inquire">Inquire</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Story Overlay Container (Fixed Viewport) -->
+  <main id="story-container">
+    <!-- SECTION 01 — MANSION / HERO -->
+    <section id="section-hero" class="story-section section-hero active">
+      <div class="hero-content">
+        <h1 class="hero-heading">
+          A HOME,<br>
+          DESIGNED<br>
+          AROUND YOU.
+        </h1>
+        <p class="hero-support">
+          Bespoke interiors shaped by light, space and detail.
+        </p>
+        <button class="hero-cta" id="hero-explore-btn">
+          Explore <span class="arrow-down">↓</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- SECTION 02 — HALL / ARRIVAL -->
+    <section id="section-arrival" class="story-section section-arrival">
+      <div class="arrival-layout">
+        <div class="arrival-content">
+          <h2 class="section-heading arrival-heading">
+            THE FIRST<br>
+            IMPRESSION<br>
+            MATTERS.
+          </h2>
+          <p class="section-body">
+            From the moment you enter, every element is considered to create a sense of calm, balance and belonging.
+          </p>
+          <div class="detail-points">
+            <div class="detail-item" id="arrival-detail-1">
+              <span class="detail-title">LIGHT</span>
+              <span class="detail-desc">Natural illumination</span>
+            </div>
+            <div class="detail-item" id="arrival-detail-2">
+              <span class="detail-title">SPACE</span>
+              <span class="detail-desc">Open transitions</span>
+            </div>
+            <div class="detail-item" id="arrival-detail-3">
+              <span class="detail-title">DETAIL</span>
+              <span class="detail-desc">Considered materials</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 03 — KITCHEN -->
+    <section id="section-kitchen" class="story-section section-kitchen">
+      <div class="kitchen-content">
+        <div class="kitchen-header">
+          <h2 class="section-heading">
+            THE HEART OF<br>
+            THE HOME
+          </h2>
+          <p class="section-body">
+            Crafted for everyday living, gathering and everything in between.
+          </p>
+        </div>
+        <div class="kitchen-details">
+          <div class="kitchen-detail-item" id="kitchen-detail-1">
+            <span class="detail-title">MATERIALS</span>
+            <span class="detail-desc">Natural stone</span>
+          </div>
+          <div class="kitchen-detail-item" id="kitchen-detail-2">
+            <span class="detail-title">LIGHT</span>
+            <span class="detail-desc">Ambient glow</span>
+          </div>
+          <div class="kitchen-detail-item" id="kitchen-detail-3">
+            <span class="detail-title">FORM</span>
+            <span class="detail-desc">Clean lines</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 04 — BEDROOM / PRIVATE SANCTUARY -->
+    <section id="section-suite" class="story-section section-suite">
+      <div class="suite-content">
+        <h2 class="section-heading">
+          YOUR PRIVATE<br>
+          SANCTUARY
+        </h2>
+        <p class="section-body">
+          A space designed for stillness, comfort and the quiet moments that matter.
+        </p>
+        <div class="suite-actions">
+          <button class="primary-btn" id="start-project-btn">Start Your Project →</button>
+          <button class="secondary-btn" id="view-work-btn">View our work</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Inquire Modal Dialog -->
+  <div id="inquire-modal" class="modal-backdrop" aria-hidden="true">
+    <div class="modal-dialog">
+      <button class="modal-close" id="modal-close-btn" aria-label="Close dialog">✕</button>
+      <span class="modal-eyebrow">COMMISSION & INQUIRY</span>
+      <h3 class="modal-heading">START YOUR RESIDENCE PROJECT</h3>
+      <p class="modal-body">Every architectural commission begins with an open conversation about space, illumination, and how you envision your sanctuary.</p>
+      <form class="modal-form" id="inquire-form">
+        <div class="form-row">
+          <input type="text" placeholder="Your Name" required class="modal-input">
+        </div>
+        <div class="form-row">
+          <input type="email" placeholder="Email Address" required class="modal-input">
+        </div>
+        <div class="form-row">
+          <input type="text" placeholder="Project Location / Estate" class="modal-input">
+        </div>
+        <div class="form-row">
+          <textarea placeholder="Describe your vision or scope" rows="3" class="modal-input"></textarea>
+        </div>
+        <button type="submit" class="primary-btn submit-btn">Send Inquiry →</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Physical Scroll Track -->
+  <div id="scroll-track"></div>
+
+  <script src="script.js?v=1.8"></script>
+</body>
+</html>

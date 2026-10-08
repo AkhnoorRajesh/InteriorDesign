@@ -1,0 +1,1699 @@
+/* -------------------------------------------------------------
+   DESIGN SYSTEM: LUXURY ARCHITECTURAL RESIDENCE (RESIDENCE 01)
+   Primary Text:    #FFF5E1
+   Dark Text:       #171715
+   Muted Cream:     rgba(255, 245, 225, 0.70)
+   Button:          #FFF5E1
+   Button Text:     #171715
+   Overlay:         rgba(0, 0, 0, 0.28) (within 0.20–0.35)
+------------------------------------------------------------- */
+
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --color-primary: #FFF5E1;
+  --color-dark: #171715;
+  --color-muted-cream: rgba(255, 245, 225, 0.70);
+  --color-primary-85: rgba(255, 245, 225, 0.85);
+  --color-primary-50: rgba(255, 245, 225, 0.50);
+  --color-primary-25: rgba(255, 245, 225, 0.25);
+  --color-primary-12: rgba(255, 245, 225, 0.12);
+  --color-primary-06: rgba(255, 245, 225, 0.06);
+
+  --color-button: #FFF5E1;
+  --color-button-text: #171715;
+  --color-overlay: rgba(0, 0, 0, 0.28);
+
+  --color-bg-dark: #171715;
+  --color-surface-dark: #1f1f1d;
+
+  --font-serif: 'Instrument Serif', Georgia, serif;
+  --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+
+  --pad-desktop: 8vw;
+  --pad-safe-top: env(safe-area-inset-top, 0px);
+  --pad-safe-bottom: env(safe-area-inset-bottom, 0px);
+  --pad-safe-left: env(safe-area-inset-left, 0px);
+  --pad-safe-right: env(safe-area-inset-right, 0px);
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  background-color: var(--color-bg-dark);
+  font-family: var(--font-sans);
+  color: var(--color-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Custom sleek architectural scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-bg-dark);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-primary-25);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-primary-50);
+}
+
+/* -------------------------------------------------------------
+   CANVAS VISUAL HERO (Fixed full-bleed)
+------------------------------------------------------------- */
+#canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  z-index: 1;
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: auto;
+  pointer-events: none;
+}
+
+/* Cinematic Video Overlay (rgba(0, 0, 0, 0.28)) */
+#video-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--color-overlay);
+  pointer-events: none;
+  z-index: 5;
+}
+
+/* Physical Scroll Track for Butter-Smooth Navigation */
+#scroll-track {
+  width: 100%;
+  height: 700vh;
+  position: relative;
+  pointer-events: none;
+}
+
+/* -------------------------------------------------------------
+   NAVIGATION (Minimal & Editorial)
+------------------------------------------------------------- */
+#site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 100;
+  padding: 28px var(--pad-desktop);
+  background: transparent;
+  pointer-events: auto;
+}
+
+#site-header.scrolled {
+  padding: 22px var(--pad-desktop);
+  background: transparent;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  border-bottom: none;
+}
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.brand-logo {
+  font-family: var(--font-serif);
+  font-size: 24px;
+  letter-spacing: 0.16em;
+  text-decoration: none;
+  color: var(--color-primary);
+  text-transform: uppercase;
+  transition: opacity 0.3s ease;
+  text-shadow: 0 2px 16px rgba(0, 0, 0, 0.7);
+}
+
+.brand-logo:hover {
+  opacity: 0.75;
+}
+
+.inquire-btn {
+  background: transparent;
+  border: 1px solid var(--color-primary-25);
+  color: var(--color-primary);
+  font-family: var(--font-sans);
+  font-size: 12px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  padding: 10px 22px;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.7);
+}
+
+.inquire-btn:hover {
+  border-color: var(--color-button);
+  background: var(--color-button);
+  color: var(--color-button-text);
+  transform: translateY(-1px);
+  text-shadow: none;
+}
+
+/* -------------------------------------------------------------
+   STORY OVERLAY CONTAINER & SECTIONS
+------------------------------------------------------------- */
+#story-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 20;
+}
+
+.story-section {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  opacity: 0;
+  visibility: hidden;
+  will-change: opacity, transform;
+  pointer-events: none;
+  transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1), transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.story-section.active {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.story-section:not(.active) * {
+  pointer-events: none !important;
+}
+
+/* Common Typography & Micro-Elements */
+.section-label, .eyebrow {
+  display: block;
+  font-family: var(--font-sans);
+  font-size: 12px;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: var(--color-muted-cream);
+  font-weight: 500;
+  margin-bottom: 20px;
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.8);
+}
+
+.section-heading {
+  font-family: var(--font-serif);
+  font-size: clamp(42px, 5.2vw, 76px);
+  font-weight: 400;
+  line-height: 1.08;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  color: var(--color-primary);
+  text-shadow: 0 4px 30px rgba(0, 0, 0, 0.85);
+}
+
+.section-body {
+  font-family: var(--font-sans);
+  font-size: clamp(15px, 1.15vw, 17px);
+  line-height: 1.68;
+  color: var(--color-muted-cream);
+  font-weight: 300;
+  margin-top: 24px;
+  text-shadow: 0 2px 18px rgba(0, 0, 0, 0.8);
+}
+
+/* -------------------------------------------------------------
+   SECTION 01: MANSION / HERO
+------------------------------------------------------------- */
+.section-hero {
+  align-items: flex-end;
+  justify-content: flex-start;
+  padding-left: var(--pad-desktop);
+  padding-bottom: 11vh;
+  opacity: 1;
+}
+
+.hero-content {
+  max-width: 540px;
+  pointer-events: auto;
+  animation: heroContentReveal 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes heroContentReveal {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.hero-heading {
+  font-family: var(--font-serif);
+  font-size: clamp(48px, 6vw, 84px);
+  font-weight: 400;
+  line-height: 1.05;
+  letter-spacing: -0.015em;
+  text-transform: uppercase;
+  color: var(--color-primary);
+  text-shadow: 0 4px 36px rgba(0, 0, 0, 0.9);
+}
+
+.hero-support {
+  font-family: var(--font-sans);
+  font-size: clamp(16px, 1.25vw, 19px);
+  line-height: 1.6;
+  color: var(--color-muted-cream);
+  margin-top: 24px;
+  margin-bottom: 34px;
+  font-weight: 300;
+  text-shadow: 0 2px 18px rgba(0, 0, 0, 0.8);
+}
+
+.hero-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: none;
+  border: none;
+  font-family: var(--font-sans);
+  font-size: 13px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-primary);
+  cursor: pointer;
+  padding: 8px 0;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.8);
+}
+
+.hero-cta .arrow-down {
+  display: inline-block;
+  transition: transform 0.3s ease;
+}
+
+.hero-cta:hover {
+  opacity: 0.8;
+}
+
+.hero-cta:hover .arrow-down {
+  transform: translateY(4px);
+}
+
+/* -------------------------------------------------------------
+   SECTION 02: HALL / ARRIVAL
+------------------------------------------------------------- */
+.section-arrival {
+  align-items: center;
+  justify-content: flex-start;
+  padding-left: var(--pad-desktop);
+  padding-right: var(--pad-desktop);
+  padding-top: 90px;
+}
+
+.arrival-layout {
+  width: 100%;
+  display: flex;
+}
+
+.arrival-content {
+  width: 100%;
+  max-width: 480px;
+  pointer-events: auto;
+}
+
+.arrival-heading {
+  font-family: var(--font-serif);
+  font-size: clamp(32px, 3.8vw, 54px);
+  font-weight: 400;
+  line-height: 1.12;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  color: var(--color-primary);
+  text-shadow: 0 4px 30px rgba(0, 0, 0, 0.85);
+  margin-top: 10px;
+}
+
+.detail-points {
+  margin-top: 48px;
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+  border-top: 1px solid var(--color-primary-12);
+  padding-top: 32px;
+}
+
+.detail-item {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1), transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.detail-item.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.detail-title {
+  font-family: var(--font-sans);
+  font-size: 13px;
+  letter-spacing: 0.22em;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: var(--color-primary);
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.8);
+}
+
+.detail-desc {
+  font-family: var(--font-sans);
+  font-size: 14px;
+  color: var(--color-muted-cream);
+  font-weight: 300;
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.8);
+}
+
+/* -------------------------------------------------------------
+   SECTION 03: KITCHEN
+------------------------------------------------------------- */
+.section-kitchen {
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 14vh var(--pad-desktop) 9vh var(--pad-desktop);
+}
+
+.kitchen-content {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  pointer-events: auto;
+}
+
+.kitchen-header {
+  max-width: 580px;
+}
+
+.kitchen-details {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 240px));
+  gap: 40px;
+  border-top: 1px solid var(--color-primary-12);
+  padding-top: 28px;
+}
+
+.kitchen-detail-item {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1), transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.kitchen-detail-item.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* -------------------------------------------------------------
+   SECTION 04: BEDROOM / PRIVATE SUITE
+------------------------------------------------------------- */
+.section-suite {
+  align-items: flex-end;
+  justify-content: flex-start;
+  padding-left: var(--pad-desktop);
+  padding-bottom: 12vh;
+}
+
+.suite-content {
+  max-width: 540px;
+  pointer-events: auto;
+}
+
+.suite-actions {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  margin-top: 40px;
+}
+
+.primary-btn {
+  background: var(--color-button);
+  color: var(--color-button-text);
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  border: none;
+  padding: 15px 32px;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.primary-btn:hover {
+  background: #ffffff;
+  color: var(--color-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6);
+}
+
+.secondary-btn {
+  background: transparent;
+  color: var(--color-muted-cream);
+  font-family: var(--font-sans);
+  font-size: 13px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  border: none;
+  padding: 10px 0;
+  cursor: pointer;
+  position: relative;
+  transition: color 0.3s ease;
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.8);
+}
+
+.secondary-btn::after {
+  content: '';
+  position: absolute;
+  bottom: 6px;
+  left: 0;
+  width: 0%;
+  height: 1px;
+  background-color: var(--color-primary);
+  transition: width 0.3s ease;
+}
+
+.secondary-btn:hover {
+  color: var(--color-primary);
+}
+
+.secondary-btn:hover::after {
+  width: 100%;
+}
+
+/* -------------------------------------------------------------
+   INQUIRE MODAL (Architectural & Minimal)
+------------------------------------------------------------- */
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(4, 4, 4, 0.85);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  padding: 24px;
+}
+
+.modal-backdrop.open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.modal-dialog {
+  background: var(--color-surface-dark);
+  border: 1px solid var(--color-primary-12);
+  width: 100%;
+  max-width: 520px;
+  padding: 48px;
+  position: relative;
+  transform: translateY(20px);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.modal-backdrop.open .modal-dialog {
+  transform: translateY(0);
+}
+
+.modal-close {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  background: transparent;
+  border: none;
+  color: var(--color-primary-50);
+  font-size: 18px;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.modal-close:hover {
+  color: var(--color-primary);
+}
+
+.modal-eyebrow {
+  display: block;
+  font-family: var(--font-sans);
+  font-size: 11px;
+  letter-spacing: 0.25em;
+  color: var(--color-muted-cream);
+  margin-bottom: 12px;
+}
+
+.modal-heading {
+  font-family: var(--font-serif);
+  font-size: 32px;
+  font-weight: 400;
+  color: var(--color-primary);
+  line-height: 1.15;
+  margin-bottom: 14px;
+}
+
+.modal-body {
+  font-family: var(--font-sans);
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--color-muted-cream);
+  font-weight: 300;
+  margin-bottom: 32px;
+}
+
+.modal-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.modal-input {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--color-primary-12);
+  color: var(--color-primary);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  padding: 14px 16px;
+  border-radius: 2px;
+  outline: none;
+  transition: border-color 0.3s ease, background-color 0.3s ease;
+}
+
+.modal-input:focus {
+  border-color: var(--color-primary-50);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.modal-input::placeholder {
+  color: var(--color-primary-25);
+}
+
+.submit-btn {
+  margin-top: 12px;
+  width: 100%;
+}
+
+/* -------------------------------------------------------------
+   INTENTIONALLY DESIGNED RESPONSIVE ARCHITECTURE
+   1. Large Desktop: 1440px+
+   2. Desktop / Laptop: 1200px – 1439px
+   3. Tablet: 768px – 1199px
+   4. Mobile: 480px – 767px
+   5. Small Mobile: 320px – 479px
+   + Short screen / Landscape mobile optimization
+------------------------------------------------------------- */
+
+/* =============================================================
+   1. LARGE DESKTOP (1440px+)
+   Expansive, grand architectural scale with generous negative space
+============================================================= */
+@media (min-width: 1440px) {
+  :root {
+    --pad-desktop: clamp(96px, 8.5vw, 160px);
+  }
+
+  #site-header {
+    padding: 34px var(--pad-desktop);
+  }
+
+  #site-header.scrolled {
+    padding: 26px var(--pad-desktop);
+  }
+
+  .brand-logo {
+    font-size: 26px;
+    letter-spacing: 0.18em;
+  }
+
+  .inquire-btn {
+    font-size: 13px;
+    padding: 12px 28px;
+    letter-spacing: 0.20em;
+  }
+
+  /* Section 01: Hero */
+  .section-hero {
+    padding-bottom: 12vh;
+  }
+
+  .hero-content {
+    max-width: 640px;
+  }
+
+  .hero-heading {
+    font-size: clamp(64px, 5.2vw, 92px);
+    line-height: 1.03;
+  }
+
+  .hero-support {
+    font-size: 19px;
+    line-height: 1.65;
+    margin-top: 28px;
+    margin-bottom: 40px;
+  }
+
+  .hero-cta {
+    font-size: 14px;
+    letter-spacing: 0.24em;
+  }
+
+  /* Section 02: Arrival */
+  .section-arrival {
+    padding-top: 100px;
+  }
+
+  .arrival-content {
+    max-width: 540px;
+  }
+
+  .arrival-heading {
+    font-size: clamp(42px, 3.5vw, 58px);
+    line-height: 1.1;
+  }
+
+  .section-body {
+    font-size: 18px;
+    line-height: 1.72;
+    margin-top: 28px;
+  }
+
+  .detail-points {
+    margin-top: 52px;
+    gap: 32px;
+    padding-top: 36px;
+  }
+
+  .detail-title {
+    font-size: 14px;
+    letter-spacing: 0.24em;
+  }
+
+  .detail-desc {
+    font-size: 15px;
+  }
+
+  /* Section 03: Kitchen */
+  .section-kitchen {
+    padding: 15vh var(--pad-desktop) 11vh var(--pad-desktop);
+  }
+
+  .kitchen-header {
+    max-width: 640px;
+  }
+
+  .kitchen-header .section-heading {
+    font-size: clamp(52px, 4.4vw, 74px);
+  }
+
+  .kitchen-details {
+    grid-template-columns: repeat(3, minmax(0, 260px));
+    gap: 52px;
+    padding-top: 34px;
+  }
+
+  .kitchen-detail-item .detail-title {
+    font-size: 14px;
+    letter-spacing: 0.24em;
+  }
+
+  .kitchen-detail-item .detail-desc {
+    font-size: 15px;
+  }
+
+  /* Section 04: Suite */
+  .section-suite {
+    padding-bottom: 13vh;
+  }
+
+  .suite-content {
+    max-width: 620px;
+  }
+
+  .suite-content .section-heading {
+    font-size: clamp(52px, 4.4vw, 74px);
+  }
+
+  .suite-actions {
+    gap: 32px;
+    margin-top: 48px;
+  }
+
+  .primary-btn {
+    font-size: 14px;
+    padding: 17px 36px;
+    letter-spacing: 0.18em;
+  }
+
+  .secondary-btn {
+    font-size: 14px;
+    letter-spacing: 0.18em;
+  }
+
+  /* Inquire Modal */
+  .modal-dialog {
+    max-width: 560px;
+    padding: 56px;
+  }
+
+  .modal-heading {
+    font-size: 36px;
+  }
+}
+
+/* =============================================================
+   2. DESKTOP / LAPTOP (1200px – 1439px)
+   Balanced editorial proportions for standard laptop & desktop viewports
+============================================================= */
+@media (min-width: 1200px) and (max-width: 1439.98px) {
+  :root {
+    --pad-desktop: clamp(64px, 6.8vw, 96px);
+  }
+
+  #site-header {
+    padding: 28px var(--pad-desktop);
+  }
+
+  #site-header.scrolled {
+    padding: 20px var(--pad-desktop);
+  }
+
+  .brand-logo {
+    font-size: 23px;
+    letter-spacing: 0.16em;
+  }
+
+  .inquire-btn {
+    font-size: 12px;
+    padding: 10px 22px;
+  }
+
+  .hero-content {
+    max-width: 520px;
+  }
+
+  .hero-heading {
+    font-size: clamp(50px, 4.5vw, 68px);
+    line-height: 1.05;
+  }
+
+  .hero-support {
+    font-size: 17px;
+    margin: 22px 0 32px;
+  }
+
+  .section-arrival {
+    padding-top: 90px;
+  }
+
+  .arrival-content {
+    max-width: 480px;
+  }
+
+  .arrival-heading {
+    font-size: clamp(34px, 3.2vw, 48px);
+  }
+
+  .detail-points {
+    margin-top: 42px;
+    gap: 26px;
+    padding-top: 28px;
+  }
+
+  .section-kitchen {
+    padding: 13vh var(--pad-desktop) 9vh var(--pad-desktop);
+  }
+
+  .kitchen-details {
+    grid-template-columns: repeat(3, minmax(0, 220px));
+    gap: 36px;
+    padding-top: 28px;
+  }
+
+  .suite-content {
+    max-width: 520px;
+  }
+}
+
+/* =============================================================
+   3. TABLET (768px – 1199px)
+   Purpose-built for iPad & Tablet ergonomics: 3-column spec cards,
+   proportional typography, balanced horizontal breathing room
+============================================================= */
+@media (min-width: 768px) and (max-width: 1199.98px) {
+  :root {
+    --pad-desktop: clamp(32px, 5vw, 56px);
+  }
+
+  #site-header {
+    padding: 22px var(--pad-desktop);
+    background: linear-gradient(180deg, rgba(23, 23, 21, 0.45) 0%, rgba(23, 23, 21, 0) 100%);
+  }
+
+  #site-header.scrolled {
+    padding: 16px var(--pad-desktop);
+    background: rgba(23, 23, 21, 0.80);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--color-primary-12);
+  }
+
+  .brand-logo {
+    font-size: 20px;
+    letter-spacing: 0.15em;
+  }
+
+  .inquire-btn {
+    font-size: 11.5px;
+    padding: 9px 18px;
+  }
+
+  /* Section 01: Hero Tablet */
+  .section-hero {
+    padding-bottom: 9vh;
+  }
+
+  .hero-content {
+    max-width: 480px;
+  }
+
+  .hero-heading {
+    font-size: clamp(42px, 5.2vw, 56px);
+    line-height: 1.08;
+  }
+
+  .hero-support {
+    font-size: 16px;
+    line-height: 1.58;
+    margin: 20px 0 28px;
+  }
+
+  .hero-cta {
+    padding: 10px 0;
+    font-size: 12.5px;
+  }
+
+  /* Section 02: Arrival Tablet - Intentional 3-Column Spec Cards */
+  .section-arrival {
+    padding-top: max(13vh, 88px);
+    align-items: flex-start;
+  }
+
+  .arrival-content {
+    max-width: 100%;
+  }
+
+  .arrival-heading {
+    font-size: clamp(34px, 4.4vw, 44px);
+    line-height: 1.1;
+  }
+
+  .section-body {
+    font-size: 15.5px;
+    line-height: 1.62;
+    margin-top: 18px;
+    max-width: 580px;
+  }
+
+  .detail-points {
+    margin-top: 36px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    border-top: none;
+    padding-top: 0;
+  }
+
+  .detail-item {
+    background: rgba(23, 23, 21, 0.45);
+    border: 1px solid var(--color-primary-12);
+    border-radius: 4px;
+    padding: 18px 20px;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+
+  .detail-title {
+    font-size: 12px;
+    letter-spacing: 0.20em;
+  }
+
+  .detail-desc {
+    font-size: 13.5px;
+  }
+
+  /* Section 03: Kitchen Tablet */
+  .section-kitchen {
+    justify-content: space-between;
+    padding: max(13vh, 88px) var(--pad-desktop) 8vh var(--pad-desktop);
+  }
+
+  .kitchen-header {
+    max-width: 560px;
+  }
+
+  .kitchen-header .section-heading {
+    font-size: clamp(36px, 4.6vw, 50px);
+  }
+
+  .kitchen-details {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    border-top: none;
+    padding-top: 24px;
+  }
+
+  .kitchen-detail-item {
+    background: rgba(23, 23, 21, 0.45);
+    border: 1px solid var(--color-primary-12);
+    border-radius: 4px;
+    padding: 18px 20px;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+
+  .kitchen-detail-item .detail-title {
+    font-size: 12px;
+    letter-spacing: 0.20em;
+  }
+
+  .kitchen-detail-item .detail-desc {
+    font-size: 13.5px;
+  }
+
+  /* Section 04: Suite Tablet */
+  .section-suite {
+    padding-bottom: 9vh;
+  }
+
+  .suite-content {
+    max-width: 500px;
+  }
+
+  .suite-content .section-heading {
+    font-size: clamp(36px, 4.6vw, 50px);
+  }
+
+  .suite-actions {
+    gap: 22px;
+    margin-top: 32px;
+  }
+
+  .primary-btn {
+    padding: 15px 30px;
+    font-size: 12.5px;
+  }
+
+  /* Inquire Modal Tablet */
+  .modal-dialog {
+    max-width: 480px;
+    padding: 40px 36px;
+  }
+}
+
+/* =============================================================
+   4. MOBILE (480px – 767px)
+   Professionally designed mobile experience:
+   - Safe-area aware header & navigation
+   - Frosted touch-tactile CTA capsule
+   - Sleek horizontal spec cards for Arrival
+   - 3-unit mobile deck for Kitchen
+   - High-contrast full-width actions for Suite
+   - Native mobile bottom-sheet modal
+============================================================= */
+@media (min-width: 480px) and (max-width: 767.98px) {
+  :root {
+    --pad-desktop: clamp(20px, 5.2vw, 28px);
+  }
+
+  #site-header {
+    padding: calc(16px + var(--pad-safe-top)) var(--pad-desktop) 16px;
+    background: linear-gradient(180deg, rgba(23, 23, 21, 0.65) 0%, rgba(23, 23, 21, 0) 100%);
+  }
+
+  #site-header.scrolled {
+    padding: calc(14px + var(--pad-safe-top)) var(--pad-desktop) 14px;
+    background: rgba(23, 23, 21, 0.85);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--color-primary-12);
+  }
+
+  .brand-logo {
+    font-size: 18px;
+    letter-spacing: 0.14em;
+  }
+
+  .inquire-btn {
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    padding: 8px 16px;
+    border-radius: 999px;
+  }
+
+  /* Section 01: Hero Mobile */
+  .section-hero {
+    align-items: flex-end;
+    padding-left: var(--pad-desktop);
+    padding-right: var(--pad-desktop);
+    padding-bottom: calc(max(6vh, 36px) + var(--pad-safe-bottom));
+  }
+
+  .hero-content {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .hero-heading {
+    font-size: clamp(34px, 8.2vw, 44px);
+    line-height: 1.06;
+    letter-spacing: -0.01em;
+  }
+
+  .hero-support {
+    font-size: 15px;
+    line-height: 1.55;
+    margin-top: 16px;
+    margin-bottom: 24px;
+    max-width: 340px;
+  }
+
+  .hero-cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    min-width: 160px;
+    padding: 12px 20px;
+    background: rgba(255, 245, 225, 0.08);
+    border: 1px solid var(--color-primary-25);
+    border-radius: 999px;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    font-size: 12px;
+    letter-spacing: 0.18em;
+  }
+
+  /* Section 02: Arrival Mobile */
+  .section-arrival {
+    align-items: flex-start;
+    padding: calc(max(11vh, 80px) + var(--pad-safe-top)) var(--pad-desktop) max(5vh, 24px);
+  }
+
+  .arrival-content {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .arrival-heading {
+    font-size: clamp(28px, 7vw, 36px);
+    line-height: 1.1;
+  }
+
+  .section-body {
+    font-size: 14px;
+    line-height: 1.6;
+    margin-top: 14px;
+  }
+
+  .detail-points {
+    margin-top: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    border-top: none;
+    padding-top: 0;
+  }
+
+  .detail-item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(23, 23, 21, 0.55);
+    border: 1px solid var(--color-primary-12);
+    border-radius: 4px;
+    padding: 13px 16px;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+
+  .detail-title {
+    font-size: 11.5px;
+    letter-spacing: 0.20em;
+  }
+
+  .detail-desc {
+    font-size: 13px;
+  }
+
+  /* Section 03: Kitchen Mobile */
+  .section-kitchen {
+    justify-content: space-between;
+    padding: calc(max(11vh, 80px) + var(--pad-safe-top)) var(--pad-desktop) calc(max(5vh, 24px) + var(--pad-safe-bottom));
+  }
+
+  .kitchen-content {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .kitchen-header .section-heading {
+    font-size: clamp(28px, 7vw, 36px);
+    line-height: 1.1;
+  }
+
+  .kitchen-details {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    border-top: none;
+    padding-top: 0;
+  }
+
+  .kitchen-detail-item {
+    background: rgba(23, 23, 21, 0.55);
+    border: 1px solid var(--color-primary-12);
+    border-radius: 4px;
+    padding: 12px 10px;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    text-align: center;
+    gap: 4px;
+  }
+
+  .kitchen-detail-item .detail-title {
+    font-size: 10.5px;
+    letter-spacing: 0.16em;
+  }
+
+  .kitchen-detail-item .detail-desc {
+    font-size: 11.5px;
+  }
+
+  /* Section 04: Suite Mobile */
+  .section-suite {
+    align-items: flex-end;
+    padding-left: var(--pad-desktop);
+    padding-right: var(--pad-desktop);
+    padding-bottom: calc(max(6vh, 36px) + var(--pad-safe-bottom));
+  }
+
+  .suite-content {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .suite-content .section-heading {
+    font-size: clamp(28px, 7vw, 36px);
+    line-height: 1.1;
+  }
+
+  .suite-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin-top: 24px;
+    width: 100%;
+  }
+
+  .primary-btn {
+    width: 100%;
+    min-height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    letter-spacing: 0.18em;
+  }
+
+  .secondary-btn {
+    text-align: center;
+    padding: 10px 0;
+    font-size: 12.5px;
+  }
+
+  /* Inquire Modal Mobile (Bottom Drawer Sheet) */
+  .modal-backdrop {
+    align-items: flex-end;
+    padding: 0;
+  }
+
+  .modal-dialog {
+    max-width: 100%;
+    width: 100%;
+    border-radius: 16px 16px 0 0;
+    padding: 32px 22px calc(24px + var(--pad-safe-bottom));
+    border-left: none;
+    border-right: none;
+    border-bottom: none;
+    max-height: 88vh;
+    overflow-y: auto;
+  }
+
+  .modal-close {
+    top: 16px;
+    right: 16px;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+  }
+
+  .modal-heading {
+    font-size: 26px;
+  }
+
+  .modal-body {
+    font-size: 13.5px;
+    margin-bottom: 22px;
+  }
+}
+
+/* =============================================================
+   5. SMALL MOBILE (320px – 479px)
+   Tailored for compact phones (iPhone SE, narrow viewports):
+   - Precision scaling without clipping or overflow
+   - Thumb-friendly hit areas (44px min)
+   - Refined micro-typography and compact card padding
+============================================================= */
+@media (max-width: 479.98px) {
+  :root {
+    --pad-desktop: 18px;
+  }
+
+  #site-header {
+    padding: calc(14px + var(--pad-safe-top)) var(--pad-desktop) 12px;
+    background: linear-gradient(180deg, rgba(23, 23, 21, 0.70) 0%, rgba(23, 23, 21, 0) 100%);
+  }
+
+  #site-header.scrolled {
+    padding: calc(12px + var(--pad-safe-top)) var(--pad-desktop) 12px;
+    background: rgba(23, 23, 21, 0.90);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--color-primary-12);
+  }
+
+  .brand-logo {
+    font-size: 16px;
+    letter-spacing: 0.12em;
+  }
+
+  .inquire-btn {
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    padding: 7px 13px;
+    border-radius: 999px;
+  }
+
+  /* Section 01: Hero Small Mobile */
+  .section-hero {
+    align-items: flex-end;
+    padding-left: var(--pad-desktop);
+    padding-right: var(--pad-desktop);
+    padding-bottom: calc(max(5vh, 24px) + var(--pad-safe-bottom));
+  }
+
+  .hero-content {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .hero-heading {
+    font-size: clamp(28px, 8.4vw, 34px);
+    line-height: 1.08;
+    letter-spacing: -0.01em;
+  }
+
+  .hero-support {
+    font-size: 13.5px;
+    line-height: 1.5;
+    margin-top: 12px;
+    margin-bottom: 18px;
+    max-width: 290px;
+  }
+
+  .hero-cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    min-width: 140px;
+    padding: 10px 16px;
+    background: rgba(255, 245, 225, 0.08);
+    border: 1px solid var(--color-primary-25);
+    border-radius: 999px;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    font-size: 11px;
+    letter-spacing: 0.16em;
+  }
+
+  /* Section 02: Arrival Small Mobile */
+  .section-arrival {
+    align-items: flex-start;
+    padding: calc(max(10vh, 72px) + var(--pad-safe-top)) var(--pad-desktop) max(4vh, 20px);
+  }
+
+  .arrival-content {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .arrival-heading {
+    font-size: clamp(25px, 7.5vw, 30px);
+    line-height: 1.1;
+  }
+
+  .section-body {
+    font-size: 13px;
+    line-height: 1.55;
+    margin-top: 10px;
+  }
+
+  .detail-points {
+    margin-top: 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    border-top: none;
+    padding-top: 0;
+  }
+
+  .detail-item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(23, 23, 21, 0.55);
+    border: 1px solid var(--color-primary-12);
+    border-radius: 3px;
+    padding: 10px 14px;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+
+  .detail-title {
+    font-size: 10.5px;
+    letter-spacing: 0.18em;
+  }
+
+  .detail-desc {
+    font-size: 12px;
+  }
+
+  /* Section 03: Kitchen Small Mobile */
+  .section-kitchen {
+    justify-content: space-between;
+    padding: calc(max(10vh, 72px) + var(--pad-safe-top)) var(--pad-desktop) calc(max(4vh, 20px) + var(--pad-safe-bottom));
+  }
+
+  .kitchen-content {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .kitchen-header .section-heading {
+    font-size: clamp(25px, 7.5vw, 30px);
+    line-height: 1.1;
+  }
+
+  .kitchen-header .section-body {
+    font-size: 13px;
+    margin-top: 10px;
+  }
+
+  .kitchen-details {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6px;
+    border-top: none;
+    padding-top: 0;
+  }
+
+  .kitchen-detail-item {
+    background: rgba(23, 23, 21, 0.55);
+    border: 1px solid var(--color-primary-12);
+    border-radius: 3px;
+    padding: 10px 6px;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    text-align: center;
+    gap: 3px;
+  }
+
+  .kitchen-detail-item .detail-title {
+    font-size: 9.5px;
+    letter-spacing: 0.12em;
+  }
+
+  .kitchen-detail-item .detail-desc {
+    font-size: 10.5px;
+  }
+
+  /* Section 04: Suite Small Mobile */
+  .section-suite {
+    align-items: flex-end;
+    padding-left: var(--pad-desktop);
+    padding-right: var(--pad-desktop);
+    padding-bottom: calc(max(5vh, 24px) + var(--pad-safe-bottom));
+  }
+
+  .suite-content {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .suite-content .section-heading {
+    font-size: clamp(25px, 7.5vw, 30px);
+    line-height: 1.1;
+  }
+
+  .suite-content .section-body {
+    font-size: 13px;
+    margin-top: 10px;
+  }
+
+  .suite-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 20px;
+    width: 100%;
+  }
+
+  .primary-btn {
+    width: 100%;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    padding: 12px 18px;
+  }
+
+  .secondary-btn {
+    text-align: center;
+    padding: 8px 0;
+    font-size: 12px;
+  }
+
+  /* Inquire Modal Small Mobile */
+  .modal-backdrop {
+    align-items: flex-end;
+    padding: 0;
+  }
+
+  .modal-dialog {
+    max-width: 100%;
+    width: 100%;
+    border-radius: 14px 14px 0 0;
+    padding: 26px 18px calc(20px + var(--pad-safe-bottom));
+    border-left: none;
+    border-right: none;
+    border-bottom: none;
+    max-height: 88vh;
+    overflow-y: auto;
+  }
+
+  .modal-close {
+    top: 14px;
+    right: 14px;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+  }
+
+  .modal-heading {
+    font-size: 23px;
+  }
+
+  .modal-body {
+    font-size: 12.5px;
+    margin-bottom: 18px;
+  }
+
+  .modal-form {
+    gap: 12px;
+  }
+
+  .modal-input {
+    font-size: 13px;
+    padding: 12px 14px;
+  }
+
+  .submit-btn {
+    min-height: 44px;
+    font-size: 11px;
+  }
+}
+
+/* =============================================================
+   SHORT SCREENS / LANDSCAPE MOBILE OPTIMIZATION
+   (Height <= 540px and Orientation: Landscape)
+============================================================= */
+@media (max-height: 540px) and (orientation: landscape) {
+  #site-header {
+    padding: 12px var(--pad-desktop);
+  }
+
+  #site-header.scrolled {
+    padding: 10px var(--pad-desktop);
+  }
+
+  .brand-logo {
+    font-size: 18px;
+  }
+
+  .inquire-btn {
+    padding: 6px 14px;
+    font-size: 10px;
+  }
+
+  .section-hero {
+    padding-bottom: 4vh;
+  }
+
+  .hero-heading {
+    font-size: clamp(26px, 8vh, 34px);
+    line-height: 1.06;
+  }
+
+  .hero-support {
+    font-size: 13px;
+    margin: 8px 0 14px;
+  }
+
+  .section-arrival {
+    padding-top: 56px;
+  }
+
+  .arrival-heading {
+    font-size: clamp(24px, 7vh, 30px);
+  }
+
+  .section-body {
+    font-size: 12.5px;
+    margin-top: 8px;
+  }
+
+  .detail-points {
+    margin-top: 14px;
+    gap: 8px;
+  }
+
+  .section-kitchen {
+    padding: 56px var(--pad-desktop) 20px var(--pad-desktop);
+  }
+
+  .kitchen-header .section-heading {
+    font-size: clamp(24px, 7vh, 30px);
+  }
+
+  .kitchen-details {
+    padding-top: 12px;
+    gap: 12px;
+  }
+
+  .section-suite {
+    padding-bottom: 4vh;
+  }
+
+  .suite-content .section-heading {
+    font-size: clamp(24px, 7vh, 30px);
+  }
+
+  .suite-actions {
+    flex-direction: row;
+    gap: 16px;
+    margin-top: 14px;
+  }
+
+  .primary-btn {
+    padding: 10px 20px;
+    font-size: 11px;
+    width: auto;
+  }
+
+  .modal-dialog {
+    max-height: 94vh;
+    padding: 20px;
+  }
+}
