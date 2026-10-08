@@ -1606,6 +1606,130 @@ html, body {
 }
 
 /* =============================================================
+   ULTRA-COMPACT MOBILE SCREENS (<= 360px, e.g. 320px iPhone SE)
+   Guarantees zero text wrapping, zero horizontal clipping,
+   and crisp proportional layout on narrow 320px viewports
+============================================================= */
+@media (max-width: 360px) {
+  :root {
+    --pad-desktop: 14px;
+  }
+
+  #site-header {
+    padding: calc(10px + var(--pad-safe-top)) var(--pad-desktop) 10px;
+  }
+
+  .brand-logo {
+    font-size: 15px;
+    letter-spacing: 0.10em;
+  }
+
+  .inquire-btn {
+    padding: 6px 12px;
+    font-size: 9.5px;
+    letter-spacing: 0.12em;
+  }
+
+  .hero-heading {
+    font-size: clamp(24px, 7.8vw, 28px);
+    line-height: 1.08;
+  }
+
+  .hero-support {
+    font-size: 12.5px;
+    margin: 8px 0 14px;
+    max-width: 260px;
+  }
+
+  .hero-cta {
+    min-width: 130px;
+    padding: 8px 14px;
+    font-size: 10.5px;
+  }
+
+  .arrival-heading {
+    font-size: clamp(22px, 7vw, 26px);
+  }
+
+  .section-body {
+    font-size: 12.5px;
+    line-height: 1.5;
+  }
+
+  .detail-points {
+    margin-top: 14px;
+    gap: 7px;
+  }
+
+  .detail-item {
+    padding: 8px 12px;
+  }
+
+  .detail-title {
+    font-size: 9.5px;
+  }
+
+  .detail-desc {
+    font-size: 11px;
+  }
+
+  .kitchen-header .section-heading {
+    font-size: clamp(22px, 7vw, 26px);
+  }
+
+  .kitchen-details {
+    gap: 4px;
+  }
+
+  .kitchen-detail-item {
+    padding: 8px 3px;
+  }
+
+  .kitchen-detail-item .detail-title {
+    font-size: 8px;
+    letter-spacing: 0.08em;
+  }
+
+  .kitchen-detail-item .detail-desc {
+    font-size: 9.5px;
+  }
+
+  .suite-content .section-heading {
+    font-size: clamp(22px, 7vw, 26px);
+  }
+
+  .suite-actions {
+    gap: 8px;
+    margin-top: 14px;
+  }
+
+  .primary-btn {
+    min-height: 40px;
+    padding: 10px 14px;
+    font-size: 10px;
+  }
+
+  .secondary-btn {
+    padding: 6px 0;
+    font-size: 11px;
+  }
+
+  .modal-dialog {
+    padding: 22px 14px calc(18px + var(--pad-safe-bottom));
+  }
+
+  .modal-heading {
+    font-size: 19px;
+  }
+
+  .modal-input {
+    font-size: 12px;
+    padding: 10px 12px;
+  }
+}
+
+
+/* =============================================================
    SHORT SCREENS / LANDSCAPE MOBILE OPTIMIZATION
    (Height <= 540px and Orientation: Landscape)
 ============================================================= */

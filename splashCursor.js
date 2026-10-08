@@ -43,16 +43,17 @@ function initSplashCursor(userConfig = {}) {
     this.color = [0, 0, 0];
   }
 
+  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
   let config = {
-    SIM_RESOLUTION: userConfig.SIM_RESOLUTION ?? 128,
-    DYE_RESOLUTION: userConfig.DYE_RESOLUTION ?? 1440,
+    SIM_RESOLUTION: userConfig.SIM_RESOLUTION ?? (isMobile ? 96 : 128),
+    DYE_RESOLUTION: userConfig.DYE_RESOLUTION ?? (isMobile ? 512 : 1024),
     CAPTURE_RESOLUTION: userConfig.CAPTURE_RESOLUTION ?? 512,
     DENSITY_DISSIPATION: userConfig.DENSITY_DISSIPATION ?? 3.5,
     VELOCITY_DISSIPATION: userConfig.VELOCITY_DISSIPATION ?? 2,
     PRESSURE: userConfig.PRESSURE ?? 0.1,
-    PRESSURE_ITERATIONS: userConfig.PRESSURE_ITERATIONS ?? 20,
+    PRESSURE_ITERATIONS: userConfig.PRESSURE_ITERATIONS ?? (isMobile ? 12 : 20),
     CURL: userConfig.CURL ?? 3,
-    SPLAT_RADIUS: userConfig.SPLAT_RADIUS ?? 0.2,
+    SPLAT_RADIUS: userConfig.SPLAT_RADIUS ?? (isMobile ? 0.28 : 0.2),
     SPLAT_FORCE: userConfig.SPLAT_FORCE ?? 6000,
     SHADING: userConfig.SHADING ?? true,
     COLOR_UPDATE_SPEED: userConfig.COLOR_UPDATE_SPEED ?? 10,
@@ -944,7 +945,7 @@ function initSplashCursor(userConfig = {}) {
   }
 
   function scaleByPixelRatio(input) {
-    const pixelRatio = window.devicePixelRatio || 1;
+    const pixelRatio = Math.min(window.devicePixelRatio || 1, 2.0);
     return Math.floor(input * pixelRatio);
   }
 

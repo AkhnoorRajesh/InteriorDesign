@@ -57,11 +57,25 @@
     ) - window.innerHeight;
   };
 
-  // High-DPI canvas resizing for crystal-clear clarity
+  // High-DPI canvas resizing for crystal-clear clarity across all devices (320px to 1440px+)
+  let lastWidth = 0;
+  let lastHeight = 0;
+
   const resizeCanvas = () => {
     const w = window.innerWidth;
     const h = window.innerHeight;
-    const dpr = Math.min(Math.max(window.devicePixelRatio || 1, 1.25), 2.5);
+
+    // Prevent mobile address-bar hide/show jitter (< 80px delta in height with unchanged width)
+    if (lastWidth === w && Math.abs(lastHeight - h) < 80) {
+      return;
+    }
+    lastWidth = w;
+    lastHeight = h;
+
+    // Native device pixel ratio: capped at 2.0 to balance extreme sharpness and 60/120fps GPU performance
+    // Avoid artificial minimums that cause subpixel blur on standard 1.0 displays
+    const rawDpr = window.devicePixelRatio || 1;
+    const dpr = Math.min(Math.max(rawDpr, 1.0), 2.0);
 
     canvas.width = Math.round(w * dpr);
     canvas.height = Math.round(h * dpr);
@@ -91,7 +105,6 @@
     const offsetX = Math.round((cw - renderWidth) / 2);
     const offsetY = Math.round((ch - renderHeight) / 2);
 
-    ctx.clearRect(0, 0, cw, ch);
     ctx.drawImage(img, 0, 0, iw, ih, offsetX, offsetY, renderWidth, renderHeight);
   };
 
@@ -126,40 +139,83 @@
     }
   };
 
-  // Intelligent progressive preloader
+  // Intelligent progressive preloader with offscreen asynchronous decode
   const preloadImages = () => {
-    // 1. Prioritize frame 0 immediately
-    const img0 = new Image();
-    img0.src = getFramePath(0);
-    images[0] = img0;
-    img0.onload = () => {
-      loaded[0] = true;
-      if (typeof img0.decode === 'function') {
-        img0.decode().then(() => {
-          if (lastDrawnIndex === -1) renderFrame(0, 1.0, true);
-        }).catch(() => {
-          if (lastDrawnIndex === -1) renderFrame(0, 1.0, true);
-        });
+    const loadFrame = (index, callback) => {
+      if (images[index] && loaded[index]) {
+        if (callback) callback();
+        return;
+      }
+      const img = new Image();
+      img.src = getFramePath(index);
+      images[index] = img;
+
+      const onDecoded = () => {
+        loaded[index] = true;
+        if (index === 0 && lastDrawnIndex === -1) {
+          renderFrame(0, 1.0, true);
+        } else {
+          const currentDist = Math.abs(lastDrawnIndex - currentTargetFrame);
+          const newDist = Math.abs(index - currentTargetFrame);
+          if (newDist < currentDist) {
+            renderFrame(currentTargetFrame, currentScale, true);
+          }
+        }
+        if (callback) callback();
+      };
+
+      if (typeof img.decode === 'function') {
+        img.decode().then(onDecoded).catch(onDecoded);
       } else {
-        if (lastDrawnIndex === -1) renderFrame(0, 1.0, true);
+        img.onload = onDecoded;
+        img.onerror = () => { if (callback) callback(); };
       }
     };
 
-    // 2. Preload remaining frames
-    for (let i = 1; i < FRAME_COUNT; i++) {
-      const img = new Image();
-      img.src = getFramePath(i);
-      images[i] = img;
-      img.onload = () => {
-        loaded[i] = true;
+    // 1. Frame 0 immediate priority
+    loadFrame(0, () => {
+      // 2. Load landmark keyframes every 8 frames (0, 8, 16, 24 ... 239) across the 4 sections
+      const keyframes = [];
+      for (let i = 8; i < FRAME_COUNT; i += 8) {
+        keyframes.push(i);
+      }
+      [52, 115, 177, 239].forEach(f => {
+        if (!keyframes.includes(f) && f !== 0) keyframes.push(f);
+      });
 
-        const currentDist = Math.abs(lastDrawnIndex - currentTargetFrame);
-        const newDist = Math.abs(i - currentTargetFrame);
-        if (newDist < currentDist) {
-          renderFrame(currentTargetFrame, currentScale, true);
+      let kIdx = 0;
+      const loadKeyframeBatch = () => {
+        if (kIdx >= keyframes.length) {
+          // 3. Load all remaining in-between frames progressively
+          loadRemainingFrames();
+          return;
         }
+        const target = keyframes[kIdx++];
+        loadFrame(target, loadKeyframeBatch);
       };
-    }
+
+      // 4 concurrent parallel pipelines for landmark frames
+      for (let s = 0; s < 4; s++) {
+        loadKeyframeBatch();
+      }
+    });
+
+    const loadRemainingFrames = () => {
+      let rIdx = 1;
+      const loadNextRemaining = () => {
+        while (rIdx < FRAME_COUNT && loaded[rIdx]) {
+          rIdx++;
+        }
+        if (rIdx >= FRAME_COUNT) return;
+        const cur = rIdx++;
+        loadFrame(cur, loadNextRemaining);
+      };
+
+      // 4 concurrent background streams
+      for (let s = 0; s < 4; s++) {
+        loadNextRemaining();
+      }
+    };
   };
 
   // Smooth scroll & mouse wheel momentum engine
@@ -169,7 +225,6 @@
   let isProgrammaticScroll = false;
   let wheelTimer = null;
   let programmaticTimer = null;
-  const LERP_SPEED = 0.095;
 
   window.addEventListener('wheel', (e) => {
     e.preventDefault();
@@ -191,10 +246,10 @@
     targetScroll = Math.max(0, Math.min(maxScroll, targetScroll + delta));
   }, { passive: false });
 
+  // Passive window scroll listener (handles native mobile touch momentum, scrollbar drags, etc.)
   window.addEventListener('scroll', () => {
     if (!isWheelActive && !isProgrammaticScroll) {
       targetScroll = window.scrollY;
-      currentScroll = window.scrollY;
     }
   }, { passive: true });
 
@@ -220,22 +275,6 @@
     }
   });
 
-  // Touch support
-  let touchStartY = 0;
-  window.addEventListener('touchstart', (e) => {
-    touchStartY = e.touches[0].clientY;
-  }, { passive: true });
-
-  window.addEventListener('touchmove', (e) => {
-    const touchY = e.touches[0].clientY;
-    const delta = (touchStartY - touchY) * 1.5;
-    touchStartY = touchY;
-
-    const maxScroll = getMaxScroll();
-    if (maxScroll > 0) {
-      targetScroll = Math.max(0, Math.min(maxScroll, targetScroll + delta));
-    }
-  }, { passive: true });
 
   // Section targets for smooth navigation
   const SECTION_PROGRESS_MAP = {
@@ -468,8 +507,10 @@
 
     if (maxScroll > 0) {
       const diff = targetScroll - currentScroll;
+      // High-performance adaptive lerping: 0.095 for momentum wheel, 0.20 for direct touch response
+      const lerpFactor = isWheelActive ? 0.095 : 0.20;
       if (Math.abs(diff) > 0.05) {
-        currentScroll += diff * LERP_SPEED;
+        currentScroll += diff * lerpFactor;
       } else {
         currentScroll = targetScroll;
         if (isProgrammaticScroll) {
